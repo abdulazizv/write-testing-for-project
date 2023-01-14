@@ -6,13 +6,18 @@ import { UpdateCustomerAdressDto } from './dto/update-customer_adress.dto';
 
 @Injectable()
 export class CustomerAdressService {
-  constructor(@InjectModel(CustomerAdress) private customeraddressRepository:typeof CustomerAdress) { }
+  constructor(
+    @InjectModel(CustomerAdress)
+    private customeraddressRepository: typeof CustomerAdress,
+  ) {}
   async create(createCustomerAdressDto: CreateCustomerAdressDto) {
     return await this.customeraddressRepository.create(createCustomerAdressDto);
   }
 
   async findAll() {
-    return await this.customeraddressRepository.findAll({include:{all:true}});
+    return await this.customeraddressRepository.findAll({
+      include: { all: true },
+    });
   }
 
   async findOne(id: number) {
@@ -20,24 +25,25 @@ export class CustomerAdressService {
   }
 
   async update(id: number, updateCustomerAdressDto: UpdateCustomerAdressDto) {
-    const check = await this.customeraddressRepository.findByPk(id)
-    if(!check){
-        throw new HttpException(
-            'Id is incorrect',
-            HttpStatus.BAD_REQUEST
-        )
+    const check = await this.customeraddressRepository.findByPk(id);
+    if (!check) {
+      throw new HttpException('Id is incorrect', HttpStatus.BAD_REQUEST);
     }
-    const newCustomer = await this.customeraddressRepository.update({
-        ...updateCustomerAdressDto
-    },{where:{id:id},returning:true})
-    return newCustomer;
+    const newCustomer = await this.customeraddressRepository.update(
+      {
+        ...updateCustomerAdressDto,
+      },
+      { where: { id: id }, returning: true },
+    );
+    return check;
   }
 
-  async remove(id: number) {
-    return await this.customeraddressRepository.destroy({
-      where:{
-        id:+id
-      }
+  async delete(id: number) {
+    await this.customeraddressRepository.destroy({
+      where: {
+        id: +id,
+      },
     });
+    return true;
   }
 }

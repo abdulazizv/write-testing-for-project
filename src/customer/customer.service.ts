@@ -120,8 +120,15 @@ export class CustomerService {
     return tokens;
   }
   async create(createCustomerDto: CreateCustomerDto) {
-    // return await this.customerRepository.create(createCustomerDto);
-    return 'OK';
+    const check = await this.customerRepository.create({
+      first_name: createCustomerDto.first_name,
+      last_name: createCustomerDto.last_name,
+      phone: createCustomerDto.phone,
+      email: createCustomerDto.email,
+      gender: createCustomerDto.gender,
+      lang_id: createCustomerDto.lang_id,
+    });
+    return check
   }
 
   async findAll() {
@@ -146,12 +153,13 @@ export class CustomerService {
     return check;
   }
 
-  async remove(id: number) {
-    return await this.customerRepository.destroy({
+  async delete(id: number) {
+    await this.customerRepository.destroy({
       where: {
         id: +id,
       },
     });
+    return true
   }
 
   async getTokens(userId: number, email: string): Promise<Tokens> {

@@ -12,12 +12,12 @@ import {
   UseGuards,
   Req,
 } from '@nestjs/common';
-import { AuthDto } from 'src/admin/dto/auth.dto';
+import { AuthDto } from '../admin/dto/auth.dto';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { Response } from 'express';
-import { customerGuard } from 'src/common/guards/customer.guard';
+import { customerGuard } from '../common/guards/customer.guard';
 import { Request } from 'express';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Customer } from './customer.model';
@@ -83,7 +83,7 @@ export class CustomerController {
   @ApiOperation({ summary: 'Customer delete qilish' })
   @ApiResponse({ status: 201, type: Customer })
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
+  delete(@Param('id') id: string) {
+    return this.customerService.delete(+id);
   }
 }

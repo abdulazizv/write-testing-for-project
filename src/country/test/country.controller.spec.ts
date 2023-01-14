@@ -68,7 +68,7 @@ describe('country controller', () => {
       test('then it should call countryService', () => {
         expect(countryService.findAll).toHaveBeenCalledWith();
       });
-      test('then it should return booking', () => {
+      test('then it should return country', () => {
         expect(country).toEqual([countryStub()]);
       });
     });
