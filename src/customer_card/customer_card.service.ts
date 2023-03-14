@@ -91,14 +91,15 @@ export class CustomerCardService {
       },
       { where: { id: id }, returning: true },
     );
-    return newCustomer;
+    return check;
   }
 
-  async remove(id: number) {
-    return await this.customercardRepository.destroy({
+  async delete(id: number) {
+    await this.customercardRepository.destroy({
       where: {
         id: +id,
       },
     });
+    return true;
   }
 }

@@ -64,7 +64,7 @@ export class CustomerCardController {
   @ApiOperation({ summary: 'Customer_card delete qilish' })
   @ApiResponse({ status: 203, type: CustomerCard })
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customerCardService.remove(+id);
+  delete(@Param('id') id: string) {
+    return this.customerCardService.delete(+id);
   }
 }
